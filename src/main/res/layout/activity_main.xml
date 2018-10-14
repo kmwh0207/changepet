@@ -1,40 +1,76 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:background="#FF000000">
     
     <ImageView 
         android:id="@+id/mainbg"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/m_bg"
         android:visibility="visible"
-        android:scaleType="fit_center"
+        android:scaleType="fitCenter"
         android:focusableInTouchMode="false"
         android:animation="@anim/intro"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        android:gravity="center"
+    />
+    <ImageView 
+        android:id="@+id/t_exp"
+        android:layout_width="270dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@id/mainbg"
+        android:layout_alignRight="@id/mainbg"
+        android:visibility="visible"
+        android:scaleType="fitCenter"
+        android:focusableInTouchMode="false"
+        android:paddingBottom="27dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="10dp"
+        android:paddingTop="0dp"
+        android:src="@drawable/m_t"
     />
     
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/gridview"
+    <GridView 
+        android:id="@+id/mainlist"
+        android:layout_alignLeft="@id/mainbg"
+        android:layout_alignTop="@id/mainbg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-        android:columnWidth="90dp" <!-- columnWidth(나눠진 칸 안에 있는 View의 가로 길이)에 따라 column(열)의 갯수가 달라진다 -->
-        android:numColumns="1" <!-- 임의로 숫자 지정 가능 -->
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center">
-    
+        android:paddingTop="20dp"
+        android:paddingBottom="@dimen/activity_vertical_margin" 
+        android:columnWidth="0dp"
+        android:numColumns="1"
+        android:verticalSpacing="0dp"
+        android:horizontalSpacing="0dp"
+        android:persistentDrawingCache="animation|scrolling"
+        android:layoutAnimation="@anim/anim_layout_controller"
+        android:listSelector="@drawable/chooseitem"
+         >
     </GridView>
-
-
+    <ImageView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:src="@drawable/load_a"
+        android:clickable="false"
+        android:gravity="end|bottom"/>
 
 </RelativeLayout>

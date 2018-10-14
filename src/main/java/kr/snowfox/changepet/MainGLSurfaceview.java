@@ -11,7 +11,7 @@ public class MainGLSurfaceview extends SurfaceView implements SurfaceHolder.Call
     //holder.setFormat(PixelFormat.TRANSLUCENT);
     public MainGLSurfaceview (Context context){
         super(context);
-        this.setZOrderOnTop(true);
+        this.setZOrderOnTop(false);
         
         
         
