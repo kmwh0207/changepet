@@ -151,15 +151,17 @@ public class MainActivity extends Activity {
     protected void gamestart(){
         //setContentView(R.layout.gamelayout);
         //System service
-        //LayoutInflater inflater =(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View v = inflater.inflate(R.layout.gamelayout,null);
-        //loadview = (ImageView)v.findViewById(R.id.loading);
+        LayoutInflater inflater =(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         loadview = (ImageView)findViewById(R.id.loading);
         loading.run();
-        //surfaceview = (SurfaceView)v.findViewById(R.id.surfaceview);
-        //surfaceview.getHolder().addCallback(new SurfaceGameview(MainActivity.this));
-        //setContentView(v);
+        View v = inflater.inflate(R.layout.gamelayout,null);
+        //loadview = (ImageView)v.findViewById(R.id.loading);
+        
+        surfaceview = (SurfaceView)v.findViewById(R.id.surfaceview);
+        surfaceview.getHolder().addCallback(new SurfaceGameview(MainActivity.this));
         loadstop();
+        setContentView(v);
+        loadview = (ImageView)v.findViewById(R.id.loadingE);
     }
     
     

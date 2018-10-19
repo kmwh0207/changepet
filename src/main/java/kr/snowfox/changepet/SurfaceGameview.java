@@ -13,20 +13,6 @@ public class SurfaceGameview extends SurfaceView implements SurfaceHolder.Callba
         super(context);
         this.setZOrderOnTop(false);
         
-    }
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-		
-	}
 
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		
-	}
-
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		
-	}
 
 }
