@@ -200,11 +200,10 @@ public class MainActivity extends Activity {
                  cur++;
                     if(cur>=images.length){
                     cur =0;
-             }
-             
+             }             
                  try{
                      
-                     Thread.sleep(1000);
+                     Thread.sleep(5000);
                  }catch(InterruptedException e){}
         //}
     }});
