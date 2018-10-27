@@ -95,6 +95,7 @@ public class MainActivity extends Activity {
                     case 1:
                         textEx.setImageResource(R.drawable.m_tb);
                         //gamestart();
+                        loading.run();
                         break;
                     case 2:
                         textEx.setImageResource(R.drawable.m_tc);
@@ -174,7 +175,7 @@ public class MainActivity extends Activity {
         Message message = handler.obtainMessage();
         message.what = CHANGE_VIEW;
         message.arg1 = GRAPHIC_MODE;
-        handler.sendMessage(message);
+        //handler.sendMessage(message);
         //loadview = (ImageView)v.findViewById(R.id.loading);
     }
     
