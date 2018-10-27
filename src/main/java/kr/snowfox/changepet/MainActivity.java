@@ -187,7 +187,7 @@ public class MainActivity extends Activity {
          public void run(){
              //loadview.setVisibility(View.VISIBLE);
              while(true){
-                 Thread.sleep(1000);
+                 
                  handler.post(new Runnable(){
                      @Override
                      public void run(){
@@ -203,10 +203,10 @@ public class MainActivity extends Activity {
              
                  try{
                      
-                 }
+                     Thread.sleep(1000);
                  }catch(InterruptedException e){}
         }
-    });
+    }});
     
     public void loadstop(){
         loading.interrupt();
