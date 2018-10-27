@@ -14,7 +14,9 @@ import java.text.SimpleDateFormat;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -22,17 +24,24 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 //해상도 가로모드에서 세로 360 가로 640
+//http://milkdrops.net/index.php/archives/665 리스트뷰 이거 참고좀
 public class MainActivity extends Activity {
     
     static final public int CHANGE_VIEW = 1;
     int SURFACEVIEW_MODE = 0;
     int OPENGLES_MODE = 1;
+    int LIBGDX_MODE = 2;
     static int GRAPHIC_MODE=1;
     private MainGLSurfaceview mGLSurfaceview;
+    private Applicationclass Appclass;
+    protected LayoutInflater inflater;
+    
     Vibrator vibrator;
     Sharedpref setting;
     SurfaceView surfaceview;
     ImageView loadview;
+    View v;
+    
     /**
      * Called when the activity is first created.
      *
@@ -45,6 +54,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inflater =(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //ApplicationClass context를통해전달가능
+        Appclass = (Applicationclass)getApplicationContext();
         //setContentView(R.layout.activity_main);
         setting = Sharedpref.getInstance("GRAPHIC",this);
         //TODO bundle로 저장되어 불러올값 정하기
@@ -58,10 +70,6 @@ public class MainActivity extends Activity {
           Toast.makeText(MainActivity.this,openmessage, Toast.LENGTH_SHORT).show();
         }
         GRAPHIC_MODE=setting.getPref("VIEWMODE");
-        Message message = handler.obtainMessage();
-        message.what = CHANGE_VIEW;
-        message.arg1 = GRAPHIC_MODE;
-        handler.sendMessage(message);
         
         //System service
         //inflater =(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -119,11 +127,22 @@ public class MainActivity extends Activity {
         @Override public void handleMessage(Message msg){
             switch (msg.what) {
                 case CHANGE_VIEW:
-                    if(msg.arg1==OPENGLES_MODE){
+                    if(msg.arg1==SURFACEVIEW_MODE){
+                        v = inflater.inflate(R.layout.gamelayout,null);
+                        surfaceview = (SurfaceView)v.findViewById(R.id.surfaceview);
+                        surfaceview.getHolder().addCallback(new SurfaceGameview(MainActivity.this));
+                        loadstop();
+                        setContentView(v);
+                        loadview = (ImageView)v.findViewById(R.id.loadingE);
+                    }else if(msg.arg1==OPENGLES_MODE){
                         mGLSurfaceview = new MainGLSurfaceview(MainActivity.this);
                         setContentView(mGLSurfaceview);
+                    }else if(msg.arg1==LIBGDX_MODE){
+                        Intent LibgdxStart = new Intent();
+                        LibgdxStart.setComponent(new ComponentName("kr.snowfox.changepet", "kr.snowfox.changepet.AndroidLauncher"));
+                        startActivity(LibgdxStart);
                     }else{
-                        
+                        Toast.makeText(getApplicationContext(),"실행할 엔진이 정의되지않았습니다.",Toast.LENGTH_LONG).show();
                     }
                     break; 
                 default: 
@@ -150,18 +169,13 @@ public class MainActivity extends Activity {
     
     protected void gamestart(){
         //setContentView(R.layout.gamelayout);
-        //System service
-        LayoutInflater inflater =(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         loadview = (ImageView)findViewById(R.id.loading);
         loading.run();
-        View v = inflater.inflate(R.layout.gamelayout,null);
+        Message message = handler.obtainMessage();
+        message.what = CHANGE_VIEW;
+        message.arg1 = GRAPHIC_MODE;
+        handler.sendMessage(message);
         //loadview = (ImageView)v.findViewById(R.id.loading);
-        
-        surfaceview = (SurfaceView)v.findViewById(R.id.surfaceview);
-        surfaceview.getHolder().addCallback(new SurfaceGameview(MainActivity.this));
-        loadstop();
-        setContentView(v);
-        loadview = (ImageView)v.findViewById(R.id.loadingE);
     }
     
     
@@ -171,23 +185,26 @@ public class MainActivity extends Activity {
          int cur=0;
          @Override
          public void run(){
-             loadview.setVisibility(View.VISIBLE);
+             //loadview.setVisibility(View.VISIBLE);
              while(true){
+                 Thread.sleep(1000);
                  handler.post(new Runnable(){
                      @Override
                      public void run(){
                          //progressbar.setprogress(value);
                          loadview.setImageResource(images[cur]);
+                         Toast.makeText(getApplicationContext(),"수행.",Toast.LENGTH_LONG).show();
                      }
                  });
-                 try{
-                     Thread.sleep(100);
-                     cur++;
-                 }catch(InterruptedException e){}
-                 if(cur>=images.length){
-                     cur =0;
-                 }
+                 cur++;
+                    if(cur>=images.length){
+                    cur =0;
              }
+             
+                 try{
+                     
+                 }
+                 }catch(InterruptedException e){}
         }
     });
     

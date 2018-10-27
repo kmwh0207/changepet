@@ -12,9 +12,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <platform.version>4.1.1.4</platform.version>
         <android.plugin.version>4.0.0-rc.2</android.plugin.version>
-        <android.sdk.platform.version>21</android.sdk.platform.version>
+        <android.sdk.platform.version>28</android.sdk.platform.version>
     </properties>
-
+    <repositories> 
+        <repository> 
+            <id>samplerepository</id> 
+            <name>localrepository</name> 
+            <url>file://${project.basedir}/libs</url> 
+        </repository> 
+    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>com.google.android</groupId>
@@ -22,6 +29,31 @@
             <version>${platform.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency> 
+            <groupId>gdx</groupId> 
+            <artifactId>gdx</artifactId> 
+            <version>0.9.9</version> 
+            <scope>system</scope> 
+            <systemPath>${project.basedir}/gdx.jar</systemPath> 
+        </dependency>
+        
+         <dependency> 
+            <groupId>gdx-backend-s</groupId> 
+            <artifactId>gdx-b-s</artifactId> 
+            <version>0.9.9</version> 
+            <scope>system</scope> 
+            <systemPath>${project.basedir}/gdx-backend-android-sources.jar</systemPath> 
+        </dependency>
+        
+        <dependency> 
+            <groupId>gdx-backend</groupId> 
+            <artifactId>gdx-b</artifactId> 
+            <version>0.9.9</version> 
+            <scope>system</scope> 
+            <systemPath>${project.basedir}/gdx-backend-android.jar</systemPath> 
+        </dependency>
+        
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

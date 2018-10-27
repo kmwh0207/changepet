@@ -42,21 +42,34 @@
         android:paddingTop="0dp"
         android:src="@drawable/m_t"
     />
+    
+    <ImageView
+        android:id="@+id/option"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@id/mainbg"
+        android:layout_alignTop="@id/mainbg"
+        android:layout_margin="20dp"
+        android:padding="0dp"
+        android:src="@drawable/option_i"
+        android:clickable="true"/>
+
      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="10">
+        android:weightSum="100"
+        android:gravity="right">
 
         <GridView 
             android:id="@+id/mainlist"
-            android:layout_alignLeft="@id/mainbg"
-            android:layout_alignTop="@id/mainbg"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="20dp"
-            android:paddingBottom="@dimen/activity_vertical_margin" 
+            android:layout_weight="90"
+            android:layout_gravity="left"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="0dp" 
             android:columnWidth="0dp"
             android:numColumns="1"
             android:verticalSpacing="0dp"
@@ -72,11 +85,12 @@
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_margin="0dp"
         android:padding="0dp"
         android:src="@drawable/load_a"
         android:clickable="false"
-        android:gravity="end|bottom"/>
+        android:layout_alignBottom="@id/mainbg"
+        android:layout_alignRight="@id/mainbg"/>
 
 </RelativeLayout>

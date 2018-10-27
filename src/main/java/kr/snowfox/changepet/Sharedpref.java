@@ -25,7 +25,7 @@ public class Sharedpref {
     }
         
     public int getPref(String name){
-        return pref.getInt(name,-1);
+        return pref.getInt(name,2);
     }
      
     // 값 저장하기
