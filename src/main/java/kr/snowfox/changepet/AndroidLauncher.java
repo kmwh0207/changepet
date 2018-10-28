@@ -10,7 +10,9 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//setContentView(R.layout.game);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new Maingame(), config);
+		//initializeForView(new Maingame(), config);
 	}
 }

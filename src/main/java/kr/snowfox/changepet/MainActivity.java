@@ -42,6 +42,9 @@ public class MainActivity extends Activity {
     ImageView loadview;
     View v;
     
+    final int images[]={R.drawable.load_a,R.drawable.load_b,R.drawable.load_c,R.drawable.load_d,R.drawable.load_e,R.drawable.load_f,R.drawable.load_g,R.drawable.load_h};
+    static int cur = 0;
+    
     /**
      * Called when the activity is first created.
      *
@@ -95,7 +98,7 @@ public class MainActivity extends Activity {
                     case 1:
                         textEx.setImageResource(R.drawable.m_tb);
                         //gamestart();
-                        loading.run();
+                        
                         break;
                     case 2:
                         textEx.setImageResource(R.drawable.m_tc);
@@ -139,9 +142,12 @@ public class MainActivity extends Activity {
                         mGLSurfaceview = new MainGLSurfaceview(MainActivity.this);
                         setContentView(mGLSurfaceview);
                     }else if(msg.arg1==LIBGDX_MODE){
-                        Intent LibgdxStart = new Intent();
-                        LibgdxStart.setComponent(new ComponentName("kr.snowfox.changepet", "kr.snowfox.changepet.AndroidLauncher"));
+                        loadview.setVisibility(View.VISIBLE);
+                        Intent LibgdxStart = new Intent(MainActivity.this,AndroidLauncher.class);
+                        //LibgdxStart.setComponent(new ComponentName("kr.snowfox.changepet", "kr.snowfox.changepet.AndroidLauncher"));
                         startActivity(LibgdxStart);
+                        loadstop();
+                        onPause();
                     }else{
                         Toast.makeText(getApplicationContext(),"실행할 엔진이 정의되지않았습니다.",Toast.LENGTH_LONG).show();
                     }
@@ -168,44 +174,43 @@ public class MainActivity extends Activity {
     public void onWindowFocusChanged(boolean hasFocus){
     }
     
-    protected void gamestart(){
+    protected synchronized void gamestart(){
         //setContentView(R.layout.gamelayout);
         loadview = (ImageView)findViewById(R.id.loading);
-        loading.run();
+        loading.start();
         Message message = handler.obtainMessage();
         message.what = CHANGE_VIEW;
         message.arg1 = GRAPHIC_MODE;
-        //handler.sendMessage(message);
+        handler.sendMessage(message);
         //loadview = (ImageView)v.findViewById(R.id.loading);
     }
     
     
     //TODO 안보이게 하는 기능 추가
     Thread loading = new Thread(new Runnable(){
-         final int images[]={R.drawable.load_a,R.drawable.load_b,R.drawable.load_c,R.drawable.load_d,R.drawable.load_e,R.drawable.load_f,R.drawable.load_g,R.drawable.load_h};
-         int cur=0;
          @Override
          public void run(){
-             //loadview.setVisibility(View.VISIBLE);
-             //while(true){
+             //cur =0;
+             while(true){
                  
                  handler.post(new Runnable(){
                      @Override
                      public void run(){
                          //progressbar.setprogress(value);
                          loadview.setImageResource(images[cur]);
-                         Toast.makeText(getApplicationContext(),"수행.",Toast.LENGTH_LONG).show();
-                     }
+                         //Toast.makeText(getApplicationContext(),"수행.",Toast.LENGTH_LONG).show();
+                         cur++;
+                        if(cur>=images.length){
+                            cur =0;
+                         } 
+                    }
                  });
-                 cur++;
-                    if(cur>=images.length){
-                    cur =0;
-             }             
+                             
+           
                  try{
-                     
-                     Thread.sleep(5000);
+                     Thread.sleep(300);
                  }catch(InterruptedException e){}
-        //}
+        }
     }});
     
     public void loadstop(){
